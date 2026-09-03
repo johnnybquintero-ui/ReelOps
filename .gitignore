@@ -1,2 +1,16 @@
+# Python virtual environments
+.venv/
+venv/
+.venv/
+
+# Python-generated files
+__pycache__/
+.pytest_cache/
+local.settings.json
+
 #Design and Notes
 Film_Release_Intelligence_API_MVP_Scaffold.md
+
+# Environment variables and secrets
+.env
+.env.*
