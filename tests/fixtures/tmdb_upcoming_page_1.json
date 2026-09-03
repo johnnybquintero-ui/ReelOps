@@ -1,0 +1,419 @@
+{
+    "dates": {
+        "maximum": "2026-09-30",
+        "minimum": "2026-09-09"
+    },
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/g4wdPZlhVioK69H8Q0o9Id5QhNs.jpg",
+            "genre_ids": [
+                53
+            ],
+            "id": 1101412,
+            "title": "Fall 2: Deadpoint",
+            "original_language": "en",
+            "original_title": "Fall 2: Deadpoint",
+            "overview": "On a perilous climb across Thailand's Mount Kwan, two climbers become trapped thousands of feet above the ground, where vertigo-inducing heights, sheer exposure, and impossible odds turn every moment into a fight for survival.",
+            "popularity": 51.7971,
+            "poster_path": "/p73G56bJGPa5y52cyqWscHR6NnN.jpg",
+            "release_date": "2026-09-09",
+            "softcore": false,
+            "video": false,
+            "vote_average": 6,
+            "vote_count": 7
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/ddfXMkaPViSrg0P5aoYGFMc58x2.jpg",
+            "genre_ids": [
+                27,
+                878
+            ],
+            "id": 1423191,
+            "title": "Resident Evil",
+            "original_language": "en",
+            "original_title": "Resident Evil",
+            "overview": "Medical courier Bryan unwittingly finds himself fighting for survival as one fateful, horrifying night collapses around him in chaos.",
+            "popularity": 34.3275,
+            "poster_path": "/qku2uWSoJ9amQV5MWo1Eek29iji.jpg",
+            "release_date": "2026-09-18",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/o1UvmHqE2fh0Z62wls5bdrNtBN2.jpg",
+            "genre_ids": [
+                878,
+                9648,
+                28
+            ],
+            "id": 1058424,
+            "title": "Hope",
+            "original_language": "ko",
+            "original_title": "호프",
+            "overview": "In the remote South Korean village of Hope Harbor, police chief Bum-seok and officer Sung-ae are called to investigate a mysterious creature wreaking havoc on the community. But all is not as it seems, and perceptions can be misleading. What begins as ignorance plants the seed of disaster, escalating through human conflict into a tragedy of cosmic proportions.",
+            "popularity": 27.5424,
+            "poster_path": "/bcK5naYzzfY0JBCgrPrsrbV6NO1.jpg",
+            "release_date": "2026-09-25",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.2,
+            "vote_count": 24
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/hS4FcOM5y71FurkBQgDLTBxmWZh.jpg",
+            "genre_ids": [
+                878,
+                27,
+                53
+            ],
+            "id": 1469342,
+            "title": "Her Private Hell",
+            "original_language": "en",
+            "original_title": "Her Private Hell",
+            "overview": "When a mysterious mist engulfs a futuristic metropolis, unleashing a deadly and elusive entity, a troubled young woman searches for her father. Her quest collides with an American GI on a harrowing odyssey to rescue his daughter from Hell.",
+            "popularity": 20.6484,
+            "poster_path": "/1gNVzTlpNLaX8sm9Wocl5rLgldU.jpg",
+            "release_date": "2026-09-25",
+            "softcore": false,
+            "video": false,
+            "vote_average": 5.082,
+            "vote_count": 55
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/apfyLCPVFttB8oXcsLJ7q0NSFLx.jpg",
+            "genre_ids": [
+                53,
+                36,
+                10752,
+                18
+            ],
+            "id": 1318413,
+            "title": "Pressure",
+            "original_language": "en",
+            "original_title": "Pressure",
+            "overview": "In the tense 72 hours before D-Day, and the fate of the free world hanging in the balance, General Dwight D. Eisenhower and Captain James Stagg face an impossible choice—launch the largest and most dangerous seaborne invasion in history or risk losing the war altogether.",
+            "popularity": 21.7696,
+            "poster_path": "/gFjEggtrejCN79r6SXRjM269OtG.jpg",
+            "release_date": "2026-09-09",
+            "softcore": false,
+            "video": false,
+            "vote_average": 7.768,
+            "vote_count": 339
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/bicMU6xVD5deVyKP2azpyx7xkmH.jpg",
+            "genre_ids": [
+                12,
+                53
+            ],
+            "id": 1263337,
+            "title": "Heart of the Beast",
+            "original_language": "en",
+            "original_title": "Heart of the Beast",
+            "overview": "After a harrowing plane crash, Special Forces officer James Belmont and his combat dog, Odin, find themselves stranded deep in the Alaskan wilderness. Together, they are forced into a brutal fight for survival against the elements.",
+            "popularity": 21.5191,
+            "poster_path": "/1ApfSA8JTqeha3GTFEY8syV4auq.jpg",
+            "release_date": "2026-09-23",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/nUcauJ000dFBYkgGpxyxJ5aWEH2.jpg",
+            "genre_ids": [
+                10749,
+                14,
+                35
+            ],
+            "id": 1302904,
+            "title": "Practical Magic 2",
+            "original_language": "en",
+            "original_title": "Practical Magic 2",
+            "overview": "The Owens sisters must confront the dark curse that threatens to unravel their family once and for all.",
+            "popularity": 19.082,
+            "poster_path": "/7jCV8dkRFK3DGJ4dTqlvrMTFPwZ.jpg",
+            "release_date": "2026-09-11",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/iXR79oKsLHwLno9jdzxxeFP21sy.jpg",
+            "genre_ids": [
+                28,
+                35,
+                53
+            ],
+            "id": 1377237,
+            "title": "Runner",
+            "original_language": "en",
+            "original_title": "Runner",
+            "overview": "A former soldier is thrown into a brutal race against time when a critical medical delivery makes him and his unlikely partner the targets of a ruthless cartel. As the mission spirals into a deadly manhunt, every detour, delay, and bullet pushes them closer to failure. With betrayal closing in from every side, they must survive the chase and deliver their cargo to save the life of a little girl.",
+            "popularity": 18.2521,
+            "poster_path": "/yBKMAIj7clP42UkFejhGDBBoTpb.jpg",
+            "release_date": "2026-09-11",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/rphor0XQcYO4CQoQ6auaQm3UPap.jpg",
+            "genre_ids": [
+                16,
+                18,
+                10751
+            ],
+            "id": 37797,
+            "title": "Whisper of the Heart",
+            "original_language": "ja",
+            "original_title": "耳をすませば",
+            "overview": "Shizuku lives a simple life, dominated by her love for stories and writing. One day she notices that all the library books she has have been previously checked out by the same person: \"Seiji Amasawa.\"",
+            "popularity": 10.7941,
+            "poster_path": "/5FROLD8zpWFs9ja7aYho1uOMJHg.jpg",
+            "release_date": "1996-11-22",
+            "softcore": false,
+            "video": false,
+            "vote_average": 7.946,
+            "vote_count": 2343
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/7Ud7QIJo21odjCaev6V4md9sK16.jpg",
+            "genre_ids": [
+                99,
+                10402
+            ],
+            "id": 1447853,
+            "title": "Oasis: Don't Look Back in Anger",
+            "original_language": "en",
+            "original_title": "Oasis: Don't Look Back in Anger",
+            "overview": "Experience the meteoric rise of Oasis through rare footage and untold stories as the band reunites for Oasis Live '25, chronicling their journey from Manchester streets to global rock stardom.",
+            "popularity": 9.0437,
+            "poster_path": "/nuNfPuFZKtkrglYnz2F9weQm3Ng.jpg",
+            "release_date": "2026-09-11",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/dNCK3daKbOi6IHSsM9O2Nwyd91Y.jpg",
+            "genre_ids": [
+                35,
+                53
+            ],
+            "id": 1198654,
+            "title": "Bad Apples",
+            "original_language": "en",
+            "original_title": "Bad Apples",
+            "overview": "A struggling primary school teacher begins to make some questionable decisions after one of her students is injured.",
+            "popularity": 7.4586,
+            "poster_path": "/sDgb5jVuZ6ZOh4YjtSMMnbovkCi.jpg",
+            "release_date": "2026-09-18",
+            "softcore": false,
+            "video": false,
+            "vote_average": 10,
+            "vote_count": 1
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/oG5kozJWLzevTrAPovtdnhCFo21.jpg",
+            "genre_ids": [
+                16,
+                35,
+                10751
+            ],
+            "id": 1187326,
+            "title": "Tad and The Magic Lamp",
+            "original_language": "es",
+            "original_title": "Tadeo Jones y La Lámpara Maravillosa",
+            "overview": "Tadeo, his girlfriend Sara, and his friends Momia, Jeff, and Belzoni embark on an adventure after Tadeo accidentally unleashes an ancient spell.",
+            "popularity": 6.6269,
+            "poster_path": "/AdDxZgNmRYgDuweY8899buyVqlr.jpg",
+            "release_date": "2026-09-11",
+            "softcore": false,
+            "video": false,
+            "vote_average": 6.5,
+            "vote_count": 8
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/pS7VXwb1sNk79F5GzgtEP5YzEHE.jpg",
+            "genre_ids": [
+                36,
+                18
+            ],
+            "id": 1165369,
+            "title": "De Gaulle: Liberté",
+            "original_language": "fr",
+            "original_title": "La Bataille de Gaulle : J’écris ton nom",
+            "overview": "Part two of a two-part biopic following French army officer Charles De Gaulle's life and political commitment between 1940 and 1945, and trace his development towards a political career.",
+            "popularity": 5.8972,
+            "poster_path": "/tcypmwT43pt5jWiUyy2BomyPD1Y.jpg",
+            "release_date": "2026-09-18",
+            "softcore": false,
+            "video": false,
+            "vote_average": 7.837,
+            "vote_count": 172
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/izLG3cxbG89nK75OHyd1zvjR7n8.jpg",
+            "genre_ids": [
+                16,
+                35,
+                878,
+                10751
+            ],
+            "id": 1477104,
+            "title": "Shaun the Sheep: The Beast of Mossy Bottom",
+            "original_language": "en",
+            "original_title": "Shaun the Sheep: The Beast of Mossy Bottom",
+            "overview": "On Halloween Eve at Mossy Bottom Farm, excitement turns to dismay when the clumsy Farmer ruins the pumpkin patch. Shaun tries fixing it with science experiments, but things go wrong when a wild beast appears in the woods.",
+            "popularity": 5.0095,
+            "poster_path": "/mMOptSPBVGUA9GHgnpsC35GzZ7e.jpg",
+            "release_date": "2026-09-18",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/7wufnyNo5uhkosKXEp8iITX5ar3.jpg",
+            "genre_ids": [
+                18,
+                10749
+            ],
+            "id": 1503762,
+            "title": "Sense and Sensibility",
+            "original_language": "en",
+            "original_title": "Sense and Sensibility",
+            "overview": "A charming, witty, and deeply relatable story of love and sisterhood.",
+            "popularity": 5.5463,
+            "poster_path": "/czsyPHosFNbh4PPqXfqWu1aBXnA.jpg",
+            "release_date": "2026-09-25",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/iZCdWpGqKQaAdhysW8gYPTdCP6A.jpg",
+            "genre_ids": [
+                18,
+                878
+            ],
+            "id": 1553969,
+            "title": "Sheep in the Box",
+            "original_language": "ja",
+            "original_title": "箱の中の羊",
+            "overview": "In the near future, architect Otone Komoto is married to Kensuke, who runs a construction company. The married couple decide to welcome a humanoid robot into their home as their son.",
+            "popularity": 4.6919,
+            "poster_path": "/9rOCIYYT8Q76FHgl3Nm5ofuc6TQ.jpg",
+            "release_date": "2026-09-25",
+            "softcore": false,
+            "video": false,
+            "vote_average": 6.433,
+            "vote_count": 15
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/l1fhfzNclQcp4oBz550KMY0CTre.jpg",
+            "genre_ids": [
+                35,
+                18
+            ],
+            "id": 1404684,
+            "title": "Just an Illusion",
+            "original_language": "fr",
+            "original_title": "Juste une illusion",
+            "overview": "In 1985 suburban Paris, 12-year-old Vincent lives with his distant older brother and quarrelling parents. Amid laughter and unease, he navigates friendship and first love, while beginning to confront the adult world.",
+            "popularity": 4.4193,
+            "poster_path": "/eWPq3wSvJEMakESTXzaBECUNBYr.jpg",
+            "release_date": "2026-09-11",
+            "softcore": false,
+            "video": false,
+            "vote_average": 7.3,
+            "vote_count": 201
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/302FswmkEMEVp7lSBjBLs1oIFZm.jpg",
+            "genre_ids": [
+                80,
+                18
+            ],
+            "id": 1310573,
+            "title": "Barrio Triste",
+            "original_language": "en",
+            "original_title": "Barrio Triste",
+            "overview": "On the outskirts of Medellín, Colombia in the late 1980s, local residents report strange lights descending from the sky. When a reporter arrives to investigate, a ragtag group of teens from a lawless neighbourhood storm the scene and steal his camera. In the hands of its new owners, the device records a mesmerising plunge into their frantic existence.",
+            "popularity": 3.8796,
+            "poster_path": "/w2zymRakHhwKUnRCLPKrBiL8inL.jpg",
+            "release_date": "2026-09-18",
+            "softcore": false,
+            "video": false,
+            "vote_average": 10,
+            "vote_count": 1
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/sEpHqsxIhAo7Q7fNZ4G60RxUgrP.jpg",
+            "genre_ids": [
+                10402,
+                99
+            ],
+            "id": 1388805,
+            "title": "LINKIN PARK: UNSHATTER",
+            "original_language": "en",
+            "original_title": "LINKIN PARK: UNSHATTER",
+            "overview": "After a seven-year hiatus following the devastating loss of their beloved bandmate Chester Bennington, LINKIN PARK'S remaining members struggled to find their way forward. Their shared history and enduring friendship, combined with the fresh perspective of two new band members Emily Armstrong and Colin Brittain spark a renewed creative energy that leads them on a transformative journey of artistic reinvention. Following the band from intimate 2022 studio sessions through their explosive FROM ZERO album release and concert in São Paulo, this documentary weaves together rare vault footage, electrifying performances from sold-out shows, and candid interviews with band members and fans—capturing the raw, honest story of what it means to start over.",
+            "popularity": 2.6656,
+            "poster_path": "/sqVlD8OoqEkcczRNWmnPjmhXh1M.jpg",
+            "release_date": "2026-09-30",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/uamyuT0gNRXbS5fgsnLVbydifk7.jpg",
+            "genre_ids": [
+                18
+            ],
+            "id": 1021848,
+            "title": "Queen at Sea",
+            "original_language": "en",
+            "original_title": "Queen at Sea",
+            "overview": "As advanced dementia erodes an older woman’s ability to communicate her inner life, her husband and daughter struggle to act in her best interests, navigating love and the fragile boundaries between care, protection and autonomy.",
+            "popularity": 2.2437,
+            "poster_path": "/iGfTwhMYMLd1z81AO3d1MHVTCbP.jpg",
+            "release_date": "2026-09-18",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0,
+            "vote_count": 0
+        }
+    ],
+    "total_pages": 2,
+    "total_results": 40
+}
