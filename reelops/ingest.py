@@ -55,3 +55,25 @@ def save_raw_payload_to_bronze(
         )
 
     return bronze_path
+
+
+def fetch_tmdb_genres(
+    tmdb_base_url: str,
+    tmdb_read_token: str,
+) -> dict[str, Any]:
+    """Fetch the list of available movie genres from TMDb."""
+
+    response = requests.get(
+        f"{tmdb_base_url.rstrip('/')}/genre/movie/list",
+        headers={
+            "Authorization": f"Bearer {tmdb_read_token}",
+            "Accept": "application/json",
+        },
+        params={
+            "language": "en",
+        },
+        timeout=10,
+    )
+
+    response.raise_for_status()
+    return response.json()
