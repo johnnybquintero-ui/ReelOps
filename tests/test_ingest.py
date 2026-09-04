@@ -5,7 +5,7 @@ from unittest.mock import Mock
 import pytest
 import requests
 
-from reelops.ingest import fetch_tmdb_upcoming_releases
+from reelops.ingest import fetch_tmdb_upcoming_releases, save_raw_payload_to_bronze
 
 
 def test_fetch_tmdb_upcoming_releases_returns_source_payload(monkeypatch):
@@ -101,3 +101,37 @@ def test_fetch_tmdb_upcoming_releases_propagates_connection_error(
         )
 
     mock_get.assert_called_once()
+
+def test_save_raw_payload_to_bronze_writes_payload_unchanged(
+    tmp_path,
+):
+    raw_payload = {
+        "page": 1,
+        "results": [
+            {
+                "id": 1058424,
+                "title": "Hope",
+                "original_title": "호프",
+            }
+        ],
+    }
+
+    bronze_path = (
+        tmp_path
+        / "data"
+        / "bronze"
+        / "tmdb_upcoming_releases.json"
+    )
+
+    returned_path = save_raw_payload_to_bronze(
+        raw_payload,
+        bronze_path,
+    )
+
+    assert bronze_path.exists()
+    assert returned_path == bronze_path
+
+    with bronze_path.open(encoding="utf-8") as bronze_file:
+        saved_payload = json.load(bronze_file)
+
+    assert saved_payload == raw_payload
