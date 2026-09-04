@@ -10,6 +10,7 @@ local.settings.json
 
 #Design and Notes
 Film_Release_Intelligence_API_MVP_Scaffold.md
+NOTES.md
 
 # Environment variables and secrets
 .env
