@@ -1,17 +1,15 @@
+import json
 from pathlib import Path
 from typing import Any
 
 import requests
-import json
 
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def fetch_tmdb_upcoming_releases(
     tmdb_url: str,
     tmdb_read_token: str,
+    region: str = "GB",
+    page: int = 1,
 ) -> dict[str, Any]:
     """Fetch one page of upcoming movie releases from TMDb."""
 
@@ -21,11 +19,16 @@ def fetch_tmdb_upcoming_releases(
             "Authorization": f"Bearer {tmdb_read_token}",
             "Accept": "application/json",
         },
+        params={
+            "region": region,
+            "page": page,
+        },
         timeout=10,
     )
 
     response.raise_for_status()
     return response.json()
+
 
 def save_raw_payload_to_bronze(
     raw_payload: dict[str, Any],
@@ -34,9 +37,9 @@ def save_raw_payload_to_bronze(
     """Save the raw source payload to the Bronze layer."""
 
     bronze_path.parent.mkdir(
-        #creates parent folders where necessary
+        # creates parent folders where necessary
         parents=True,
-        #prevents error if the folder already exists
+        # prevents error if the folder already exists
         exist_ok=True,
     )
 

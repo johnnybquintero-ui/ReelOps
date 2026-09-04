@@ -38,6 +38,10 @@ def test_fetch_tmdb_upcoming_releases_returns_source_payload(monkeypatch):
             "Authorization": "Bearer test-token",
             "Accept": "application/json",
         },
+        params={
+            "region": "GB",
+            "page": 1,
+        },
         timeout=10,
     )
 
@@ -102,6 +106,7 @@ def test_fetch_tmdb_upcoming_releases_propagates_connection_error(
 
     mock_get.assert_called_once()
 
+
 def test_save_raw_payload_to_bronze_writes_payload_unchanged(
     tmp_path,
 ):
@@ -116,12 +121,7 @@ def test_save_raw_payload_to_bronze_writes_payload_unchanged(
         ],
     }
 
-    bronze_path = (
-        tmp_path
-        / "data"
-        / "bronze"
-        / "tmdb_upcoming_releases.json"
-    )
+    bronze_path = tmp_path / "data" / "bronze" / "tmdb_upcoming_releases.json"
 
     returned_path = save_raw_payload_to_bronze(
         raw_payload,
