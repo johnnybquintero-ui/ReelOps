@@ -123,3 +123,50 @@ def get_releases(
 
     # use json_response helper to convert the response into a JSON HTTP response
     return json_response(response, 200)
+
+
+@app.route(
+    route="health",
+    methods=["GET"],
+    auth_level=func.AuthLevel.ANONYMOUS,
+)
+def get_health(
+    req: func.HttpRequest,
+) -> func.HttpResponse:
+    """Return health status of the Function App."""
+
+    try:
+        tmdb_token = os.environ["TMDB_READ_TOKEN"]
+
+        if not tmdb_token:
+            raise ValueError("TMDB_READ_TOKEN is empty")
+
+    except (KeyError, ValueError) as error:
+        logger.error("TMDb token health check failed: %s", error)
+
+        return json_response(
+            {"error": ("TMDB_READ_TOKEN is not configured")},
+            503,
+        )
+
+    try:
+        read_cache_response(CACHE_PATH)
+
+    except (FileNotFoundError, json.JSONDecodeError):
+        logger.exception("Release cache is unavailable")
+
+        return json_response(
+            {"error": ("release cache is unavailable")},
+            503,
+        )
+
+    return json_response(
+        {
+            "status": "healthy",
+            "checks": {
+                "tmdb_token_configured": True,
+                "cache_readable": True,
+            },
+        },
+        200,
+    )

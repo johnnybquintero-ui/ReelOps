@@ -4,7 +4,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from function_app import get_releases, json_response, refresh_releases_timer
+from function_app import get_health, get_releases, json_response, refresh_releases_timer
 
 
 def test_refresh_releases_timer_calls_pipeline(
@@ -424,3 +424,119 @@ def test_get_releases_returns_503_when_cache_is_malformed(
 
     mock_read_cache.assert_called_once()
     mock_filter.assert_not_called()
+
+
+def test_get_health_returns_200_when_token_is_present_and_cache_is_readable(
+    monkeypatch,
+    request_factory,
+):
+    # Arrange
+    mock_read_cache = Mock()
+
+    monkeypatch.setenv(
+        "TMDB_READ_TOKEN",
+        "test-token",
+    )
+
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+
+    request = request_factory(route="health")
+
+    # Act
+    response = get_health(request)
+
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 200
+    assert payload["status"] == "healthy"
+    assert payload["checks"]["tmdb_token_configured"] is True
+    assert payload["checks"]["cache_readable"] is True
+
+
+def test_get_health_returns_503_when_token_is_missing(
+    monkeypatch,
+    request_factory,
+):
+    # Arrange
+    mock_read_cache = Mock()
+
+    monkeypatch.delenv(
+        "TMDB_READ_TOKEN",
+        raising=False,
+    )
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+
+    request = request_factory(route="health")
+
+    # Act
+    response = get_health(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 503
+    assert payload == {"error": "TMDB_READ_TOKEN is not configured"}
+    mock_read_cache.assert_not_called()
+
+
+def test_get_health_returns_503_when_cache_is_unreadable(
+    monkeypatch,
+    request_factory,
+):
+    # Arrange
+    mock_read_cache = Mock(side_effect=FileNotFoundError)
+
+    monkeypatch.setenv(
+        "TMDB_READ_TOKEN",
+        "test-token",
+    )
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+
+    request = request_factory(route="health")
+
+    # Act
+    response = get_health(request)
+
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 503
+    assert payload == {"error": "release cache is unavailable"}
+    mock_read_cache.assert_called_once()
+
+
+def test_get_health_returns_503_when_token_is_empty(
+    monkeypatch,
+    request_factory,
+):
+    # Arrange
+    mock_read_cache = Mock()
+
+    monkeypatch.setenv(
+        "TMDB_READ_TOKEN",
+        "",
+    )
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+
+    request = request_factory(route="health")
+
+    # Act
+    response = get_health(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 503
+    assert payload == {"error": "TMDB_READ_TOKEN is not configured"}
+    mock_read_cache.assert_not_called()

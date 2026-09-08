@@ -8,10 +8,11 @@ def request_factory():
 
     def make_request(
         params: dict[str, str] | None = None,
+        route: str = "releases",
     ) -> func.HttpRequest:
         return func.HttpRequest(
             method="GET",
-            url="http://localhost:7071/api/releases",
+            url=f"http://localhost:7071/api/{route}",
             params=params or {},
             body=b"",
         )
