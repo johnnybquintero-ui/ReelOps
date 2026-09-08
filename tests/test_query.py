@@ -71,6 +71,7 @@ def test_filter_releases_returns_empty_list_when_nothing_matches(
         == []
     )
 
+
 @pytest.mark.parametrize(
     ("year", "month"),
     [
@@ -106,6 +107,7 @@ def test_validate_release_filters_rejects_invalid_year(
             month=None,
         )
 
+
 @pytest.mark.parametrize(
     "invalid_month",
     [
@@ -124,6 +126,7 @@ def test_validate_release_filters_rejects_invalid_month(
             year=None,
             month=invalid_month,
         )
+
 
 @pytest.mark.parametrize(
     ("year", "month"),

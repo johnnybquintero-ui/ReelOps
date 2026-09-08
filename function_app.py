@@ -1,9 +1,12 @@
 import logging
 import os
+import json
 
 import azure.functions as func
 
 from reelops.pipeline import refresh_release_cache
+
+from typing import Any
 
 # Creates the main Azure Functions application object.
 app = func.FunctionApp()
@@ -37,3 +40,16 @@ def refresh_releases_timer(timer: func.TimerRequest) -> None:
     )
 
     logger.info("Scheduled release refresh completed: %s", stats)
+
+
+def json_response(
+    payload: dict[str, Any],
+    status_code: int,
+) -> func.HttpResponse:
+    """Build an explicit JSON HTTP response."""
+
+    return func.HttpResponse(
+        body=json.dumps(payload),
+        status_code=status_code,
+        mimetype="application/json",
+    )

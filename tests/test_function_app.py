@@ -1,7 +1,8 @@
+import json
 import logging
 from unittest.mock import Mock
 
-from function_app import refresh_releases_timer
+from function_app import json_response, refresh_releases_timer
 
 
 def test_refresh_releases_timer_calls_pipeline(
@@ -59,3 +60,15 @@ def test_refresh_releases_timer_warns_when_past_due(
         refresh_releases_timer(timer)
 
     assert "Release refresh timer is running late." in caplog.text
+
+
+def test_json_response_builds_json_http_response():
+    payload = {
+        "status": "healthy",
+    }
+
+    response = json_response(payload, status_code=200)
+
+    assert response.status_code == 200
+    assert response.mimetype == "application/json"
+    assert json.loads(response.get_body()) == payload

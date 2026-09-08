@@ -9,7 +9,7 @@ def filter_releases(
     """Filter releases by optional release year and month."""
 
     validate_release_filters(year, month)
-    
+
     result = []
 
     for release in releases:
@@ -26,6 +26,7 @@ def filter_releases(
         result.append(release)
 
     return result
+
 
 def validate_release_filters(
     year: int | None,
