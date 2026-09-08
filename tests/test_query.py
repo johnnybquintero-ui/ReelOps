@@ -1,6 +1,6 @@
 import pytest
 
-from reelops.query import filter_releases
+from reelops.query import filter_releases, validate_release_filters
 
 
 @pytest.fixture
@@ -70,3 +70,70 @@ def test_filter_releases_returns_empty_list_when_nothing_matches(
         )
         == []
     )
+
+@pytest.mark.parametrize(
+    ("year", "month"),
+    [
+        (2023, 5),
+        (2023, None),
+        (None, 5),
+        (None, None),
+    ],
+)
+def test_validate_release_filters_accepts_valid_filters(
+    year,
+    month,
+):
+    validate_release_filters(year=year, month=month)
+
+
+@pytest.mark.parametrize(
+    "invalid_year",
+    [
+        999,
+        10000,
+    ],
+)
+def test_validate_release_filters_rejects_invalid_year(
+    invalid_year,
+):
+    with pytest.raises(
+        ValueError,
+        match="year must be a four-digit integer",
+    ):
+        validate_release_filters(
+            year=invalid_year,
+            month=None,
+        )
+
+@pytest.mark.parametrize(
+    "invalid_month",
+    [
+        0,
+        13,
+    ],
+)
+def test_validate_release_filters_rejects_invalid_month(
+    invalid_month,
+):
+    with pytest.raises(
+        ValueError,
+        match="month must be between 1 and 12",
+    ):
+        validate_release_filters(
+            year=None,
+            month=invalid_month,
+        )
+
+@pytest.mark.parametrize(
+    ("year", "month"),
+    [
+        (1000, 1),
+        (9999, 12),
+    ],
+)
+def test_validate_release_filters_accepts_boundary_values(
+    year,
+    month,
+):
+    validate_release_filters(year=year, month=month)
