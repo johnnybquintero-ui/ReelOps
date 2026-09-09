@@ -6,6 +6,7 @@ from typing import Any
 
 import azure.functions as func
 
+from reelops.graphql_schema import schema
 from reelops.pipeline import refresh_release_cache
 from reelops.query import filter_releases, validate_release_filters
 from reelops.storage import read_cache_response
@@ -170,3 +171,61 @@ def get_health(
         },
         200,
     )
+
+
+@app.route(
+    route="graphql",
+    methods=["POST"],
+    auth_level=func.AuthLevel.ANONYMOUS,
+)
+def graphql_api(req: func.HttpRequest) -> func.HttpResponse:
+    """Execute a GraphQL query against the latest release cache."""
+
+    try:
+        request_payload = req.get_json()
+    except ValueError:
+        return json_response(
+            {"error": "request body must be valid JSON"},
+            400,
+        )
+
+    if not isinstance(request_payload, dict):
+        return json_response(
+            {"error": "request body must be a JSON object"},
+            400,
+        )
+
+    query = request_payload.get("query")
+    if not isinstance(query, str) or not query.strip():
+        return json_response(
+            {"error": "query must be a non-empty string"},
+            400,
+        )
+
+    try:
+        cache = read_cache_response(CACHE_PATH)
+    except (FileNotFoundError, json.JSONDecodeError):
+        logger.exception("Release cache is unavailable")
+        return json_response(
+            {"error": "release cache is unavailable"},
+            503,
+        )
+
+    result = schema.execute_sync(
+        query,
+        variable_values=request_payload.get("variables"),
+        operation_name=request_payload.get("operationName"),
+        context_value={"cache": cache},
+    )
+
+    response_payload = {}
+
+    if result.data is not None:
+        response_payload["data"] = result.data
+
+    if result.errors:
+        response_payload["errors"] = [
+            {"message": error.message} for error in result.errors
+        ]
+
+    return json_response(response_payload, 200)
