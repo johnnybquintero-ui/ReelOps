@@ -4,7 +4,13 @@ from unittest.mock import Mock
 
 import pytest
 
-from function_app import get_health, get_releases, json_response, refresh_releases_timer
+from function_app import (
+    get_health,
+    get_releases,
+    graphql_api,
+    json_response,
+    refresh_releases_timer,
+)
 
 
 def test_refresh_releases_timer_calls_pipeline(
@@ -540,3 +546,437 @@ def test_get_health_returns_503_when_token_is_empty(
     assert response.status_code == 503
     assert payload == {"error": "TMDB_READ_TOKEN is not configured"}
     mock_read_cache.assert_not_called()
+
+
+def test_graphql_api_executes_valid_query_and_variables(
+    monkeypatch,
+    graphql_request_factory,
+    cache_response,
+):
+    # Arrange
+    query = """
+        query Releases($year: Int, $month: Int) {
+          releases(year: $year, month: $month) {
+            title
+            releaseDate
+          }
+        }
+    """
+    variables = {
+        "year": 2026,
+        "month": 9,
+    }
+
+    graphql_result = Mock(
+        data={
+            "releases": [
+                {
+                    "title": "September Film",
+                    "releaseDate": "2026-09-09",
+                }
+            ]
+        },
+        errors=None,
+    )
+
+    mock_read_cache = Mock(return_value=cache_response)
+    mock_schema = Mock()
+    mock_schema.execute_sync.return_value = graphql_result
+
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+    monkeypatch.setattr(
+        "function_app.schema",
+        mock_schema,
+    )
+
+    request = graphql_request_factory(
+        {
+            "query": query,
+            "variables": variables,
+            "operationName": "Releases",
+        }
+    )
+
+    # Act
+    response = graphql_api(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 200
+    assert payload == {
+        "data": {
+            "releases": [
+                {
+                    "title": "September Film",
+                    "releaseDate": "2026-09-09",
+                }
+            ]
+        }
+    }
+
+    mock_read_cache.assert_called_once()
+    mock_schema.execute_sync.assert_called_once_with(
+        query,
+        variable_values=variables,
+        operation_name="Releases",
+        context_value={"cache": cache_response},
+    )
+
+
+def test_graphql_api_returns_only_selected_fields(
+    monkeypatch,
+    graphql_request_factory,
+    cache_response,
+):
+    # Arrange
+    query = """
+        query {
+          releases {
+            title
+          }
+        }
+    """
+
+    graphql_result = Mock(
+        data={
+            "releases": [
+                {
+                    "title": "September Film",
+                }
+            ]
+        },
+        errors=None,
+    )
+
+    mock_read_cache = Mock(return_value=cache_response)
+    mock_schema = Mock()
+    mock_schema.execute_sync.return_value = graphql_result
+
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+    monkeypatch.setattr(
+        "function_app.schema",
+        mock_schema,
+    )
+
+    request = graphql_request_factory(
+        {
+            "query": query,
+        }
+    )
+
+    # Act
+    response = graphql_api(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 200
+    assert payload == {
+        "data": {
+            "releases": [
+                {
+                    "title": "September Film",
+                }
+            ]
+        }
+    }
+
+    returned_release = payload["data"]["releases"][0]
+    assert set(returned_release) == {"title"}
+
+    mock_read_cache.assert_called_once()
+    mock_schema.execute_sync.assert_called_once_with(
+        query,
+        variable_values=None,
+        operation_name=None,
+        context_value={"cache": cache_response},
+    )
+
+
+def test_graphql_api_returns_400_for_invalid_json(
+    monkeypatch,
+    graphql_request_factory,
+):
+    # Arrange
+    mock_read_cache = Mock()
+    mock_schema = Mock()
+
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+    monkeypatch.setattr(
+        "function_app.schema",
+        mock_schema,
+    )
+
+    request = graphql_request_factory(
+        raw_body=b'{"query": invalid}',
+    )
+
+    # Act
+    response = graphql_api(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 400
+    assert payload == {"error": "request body must be valid JSON"}
+
+    mock_read_cache.assert_not_called()
+    mock_schema.execute_sync.assert_not_called()
+
+
+@pytest.mark.parametrize(
+    "request_payload",
+    [
+        {},
+        {"query": ""},
+        {"query": "   "},
+    ],
+    ids=[
+        "missing-query",
+        "empty-query",
+        "whitespace-query",
+    ],
+)
+def test_graphql_api_returns_400_for_missing_or_empty_query(
+    monkeypatch,
+    graphql_request_factory,
+    request_payload,
+):
+    # Arrange
+    mock_read_cache = Mock()
+    mock_schema = Mock()
+
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+    monkeypatch.setattr(
+        "function_app.schema",
+        mock_schema,
+    )
+
+    request = graphql_request_factory(request_payload)
+
+    # Act
+    response = graphql_api(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 400
+    assert payload == {"error": "query must be a non-empty string"}
+
+    mock_read_cache.assert_not_called()
+    mock_schema.execute_sync.assert_not_called()
+
+
+def test_graphql_api_returns_400_when_body_is_not_an_object(
+    monkeypatch,
+    graphql_request_factory,
+):
+    # Arrange
+    mock_read_cache = Mock()
+    mock_schema = Mock()
+
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+    monkeypatch.setattr(
+        "function_app.schema",
+        mock_schema,
+    )
+
+    request = graphql_request_factory(["not", "an", "object"])
+
+    # Act
+    response = graphql_api(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 400
+    assert payload == {"error": "request body must be a JSON object"}
+
+    mock_read_cache.assert_not_called()
+    mock_schema.execute_sync.assert_not_called()
+
+
+@pytest.mark.parametrize(
+    "cache_error",
+    [
+        FileNotFoundError(),
+        json.JSONDecodeError(
+            "Invalid JSON",
+            "",
+            0,
+        ),
+    ],
+    ids=[
+        "missing-cache",
+        "malformed-cache",
+    ],
+)
+def test_graphql_api_returns_503_when_cache_is_unavailable(
+    monkeypatch,
+    graphql_request_factory,
+    cache_error,
+):
+    # Arrange
+    mock_read_cache = Mock(side_effect=cache_error)
+    mock_schema = Mock()
+
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+    monkeypatch.setattr(
+        "function_app.schema",
+        mock_schema,
+    )
+
+    request = graphql_request_factory(
+        {
+            "query": "{ releases { title } }",
+        }
+    )
+
+    # Act
+    response = graphql_api(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 503
+    assert payload == {"error": "release cache is unavailable"}
+
+    mock_read_cache.assert_called_once()
+    mock_schema.execute_sync.assert_not_called()
+
+
+def test_graphql_api_returns_errors_for_invalid_field(
+    monkeypatch,
+    graphql_request_factory,
+    cache_response,
+):
+    # Arrange
+    query = """
+        query {
+          releases {
+            nonexistentField
+          }
+        }
+    """
+
+    graphql_error = Mock(
+        message=("Cannot query field " "'nonexistentField' on type 'Release'.")
+    )
+    graphql_result = Mock(
+        data=None,
+        errors=[graphql_error],
+    )
+
+    mock_read_cache = Mock(return_value=cache_response)
+    mock_schema = Mock()
+    mock_schema.execute_sync.return_value = graphql_result
+
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+    monkeypatch.setattr(
+        "function_app.schema",
+        mock_schema,
+    )
+
+    request = graphql_request_factory(
+        {
+            "query": query,
+        }
+    )
+
+    # Act
+    response = graphql_api(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 200
+    assert payload == {
+        "errors": [
+            {"message": ("Cannot query field " "'nonexistentField' on type 'Release'.")}
+        ]
+    }
+
+    mock_read_cache.assert_called_once()
+    mock_schema.execute_sync.assert_called_once_with(
+        query,
+        variable_values=None,
+        operation_name=None,
+        context_value={"cache": cache_response},
+    )
+
+
+def test_graphql_api_returns_errors_for_invalid_month(
+    monkeypatch,
+    graphql_request_factory,
+    cache_response,
+):
+    # Arrange
+    query = """
+        query Releases($month: Int) {
+          releases(month: $month) {
+            title
+          }
+        }
+    """
+
+    graphql_error = Mock(message="month must be between 1 and 12")
+    graphql_result = Mock(
+        data=None,
+        errors=[graphql_error],
+    )
+
+    mock_read_cache = Mock(return_value=cache_response)
+    mock_schema = Mock()
+    mock_schema.execute_sync.return_value = graphql_result
+
+    monkeypatch.setattr(
+        "function_app.read_cache_response",
+        mock_read_cache,
+    )
+    monkeypatch.setattr(
+        "function_app.schema",
+        mock_schema,
+    )
+
+    request = graphql_request_factory(
+        {
+            "query": query,
+            "variables": {
+                "month": 15,
+            },
+            "operationName": "Releases",
+        }
+    )
+
+    # Act
+    response = graphql_api(request)
+    payload = get_response_payload(response)
+
+    # Assert
+    assert response.status_code == 200
+    assert payload == {"errors": [{"message": ("month must be between 1 and 12")}]}
+
+    mock_read_cache.assert_called_once()
+    mock_schema.execute_sync.assert_called_once_with(
+        query,
+        variable_values={
+            "month": 15,
+        },
+        operation_name="Releases",
+        context_value={"cache": cache_response},
+    )
