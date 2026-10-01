@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ReelOps API Explorer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p>Release intelligence</p>
+        <h1>ReelOps API Explorer</h1>
+        <p>Run equivalent REST and GraphQL requests.</p>
+      </header>
+
+      <form id="query-form">
+        <label>
+          API style
+          <select id="transport" name="transport">
+            <option value="rest">REST</option>
+            <option value="graphql">GraphQL</option>
+          </select>
+        </label>
+
+        <label>
+          Year
+          <input id="year" name="year" type="number" />
+        </label>
+
+        <label>
+          Month
+          <input
+            id="month"
+            name="month"
+            type="number"
+            min="1"
+            max="12"
+          />
+        </label>
+
+        <button type="submit">Load releases</button>
+      </form>
+
+      <p id="status" role="status" aria-live="polite"></p>
+
+      <section>
+        <h2>Releases</h2>
+
+        <div id="results">
+      </section>
+
+      <details>
+        <summary>Raw API response</summary>
+        <pre id="raw-response"></pre>
+      </details>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

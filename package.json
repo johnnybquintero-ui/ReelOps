@@ -1,0 +1,8 @@
+{
+  "name": "reelops-client",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test frontend/tests/*.test.js"
+  }
+}
